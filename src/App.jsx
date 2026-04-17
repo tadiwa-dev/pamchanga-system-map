@@ -101,7 +101,10 @@ const SystemMapApp = () => {
     { from: 'outliers', to: 'success', type: 'positive', label: 'Creates proof', level: innovationScore },
     { from: 'success', to: 'stigma', type: 'synergy', label: 'Breaks stigma', level: innovationScore },
     // Barrier
-    { from: 'investors', to: 'outliers', type: valleyOfDeath < 40 ? 'positive' : 'barrier', label: 'Valley of Death', level: valleyOfDeath < 40 ? investorRiskAppetite : valleyOfDeath },
+    { from: 'investors', to: 'outliers', type: (valleyOfDeath < 40) ? 'positive' : 'barrier', label: 'Valley of Death', level: (valleyOfDeath < 40) ? investorRiskAppetite : valleyOfDeath },
+    // Geography & Urban Bias
+    { from: 'investors', to: 'geography', type: 'negative', label: 'Urban focus', level: 100 - investorRiskAppetite },
+    { from: 'geography', to: 'stigma', type: 'negative', label: 'Reinforces exclusion', level: 80 },
   ], [stigmaLevel, educationalAlignment, incubatorSupport, talentAttraction, innovationScore, valleyOfDeath, investorRiskAppetite]);
 
   // Edge path with slight curve
