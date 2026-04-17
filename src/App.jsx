@@ -63,9 +63,12 @@ const SystemMapApp = () => {
       desc: 'The primary talent pool currently avoiding agriculture due to perceived low status and high career risk.'
     },
     geography: {
-      id: 'geography', label: 'Urban Hub Bias', layer: 'Patterns',
-      x: 720, y: 210, icon: Globe, color: '#94a3b8', size: 26,
-      desc: 'The "Geography of Exclusion" — 40+ innovation hubs in cities while rural youth lack infrastructure and support.'
+      id: 'geography', label: incubatorSupport > 60 ? 'Geographic Equity' : 'Urban Hub Bias', layer: 'Patterns',
+      x: 720, y: 210, icon: Globe, color: incubatorSupport > 60 ? '#2dd4bf' : '#94a3b8', 
+      size: Math.max(16, 32 - incubatorSupport * 0.15),
+      desc: incubatorSupport > 60 
+        ? 'Decentralized support systems ensuring rural youth have equal access to infrastructure and mentorship.'
+        : 'The "Geography of Exclusion" — 40+ innovation hubs in cities while rural youth lack infrastructure and support.'
     },
     incubators: {
       id: 'incubators', label: 'Youth Incubators', layer: 'Structures',
@@ -97,6 +100,7 @@ const SystemMapApp = () => {
     { from: 'academic', to: 'stigma', type: 'negative', label: 'Reinforces bias', level: 100 - educationalAlignment },
     // Positive / catalytic
     { from: 'incubators', to: 'outliers', type: 'positive', label: 'Seed funding', level: incubatorSupport },
+    { from: 'incubators', to: 'geography', type: 'positive', label: 'Expands reach', level: incubatorSupport },
     { from: 'stem', to: 'incubators', type: 'positive', label: 'Talent flow', level: talentAttraction },
     { from: 'outliers', to: 'success', type: 'positive', label: 'Creates proof', level: innovationScore },
     { from: 'success', to: 'stigma', type: 'synergy', label: 'Breaks stigma', level: innovationScore },
